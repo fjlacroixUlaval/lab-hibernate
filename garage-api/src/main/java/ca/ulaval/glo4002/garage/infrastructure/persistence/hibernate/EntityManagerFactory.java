@@ -15,6 +15,10 @@ public class EntityManagerFactory {
     return entityManagerFactory;
   }
 
+  public static void reset(){
+    entityManagerFactory = Persistence.createEntityManagerFactory("garage");
+  }
+
 
 
 
