@@ -1,12 +1,21 @@
 package ca.ulaval.glo4002.garage.domain.appointments;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class AppointmentNumber {
+@Embeddable
+public class AppointmentNumber implements Serializable {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+
+    @Column(name = "appointmentNumber")
     private String number;
+
+    public AppointmentNumber() {
+    }
 
     public static AppointmentNumber create(LocalDate date, String identifier) {
         return new AppointmentNumber(date.format(FORMATTER) + "-" + identifier);
@@ -22,6 +31,10 @@ public class AppointmentNumber {
 
     public String getNumber() {
         return number;
+    }
+
+    public void setNumber(String number){
+        this.number = number;
     }
 
     @Override

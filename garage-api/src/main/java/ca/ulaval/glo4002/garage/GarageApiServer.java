@@ -1,9 +1,15 @@
 package ca.ulaval.glo4002.garage;
 
 import java.util.EnumSet;
-
+import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.DispatcherType;
 
+import ca.ulaval.glo4002.garage.domain.appointments.Appointment;
+import ca.ulaval.glo4002.garage.domain.appointments.AppointmentFactory;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -36,6 +42,8 @@ public class GarageApiServer implements Runnable {
 
 		if (persistenceType == PersistenceType.HIBERNATE) {
 			contextHandler.addFilter(EntityManagerContextFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+
+			ca.ulaval.glo4002.garage.infrastructure.persistence.hibernate.EntityManagerFactory.getInstance();
 		}
 
 		ServletContainer container = new ServletContainer(resourceConfig);
